@@ -18,7 +18,7 @@ class Master
 
     /**
      * Combinaisons proposées
-     * @var Combination $combinationProposal
+     * @var Combination[] $combinationProposal
      */
     private $combinationProposal;
 

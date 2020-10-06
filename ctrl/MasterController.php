@@ -6,7 +6,7 @@ namespace Ctrl;
 
 use Core\Ctrl\Controller;
 use Manager\MasterManager;
-use Model\Master;
+use Model\Combination;
 
 /**
  * Class MasterController
@@ -35,11 +35,9 @@ class MasterController extends Controller
      */
     public function play(): void
     {
-        $master = new Master();
-        $master->setCombinationToFind($master->randomCombination());
-        $master->setCombinationProposal([0, 2, 3, 5]);
-        $combination = $master->getCombinationProposal();
-        $this->render(ROOT_DIR . 'view/play.php', compact('combination'));
+        $combinations = [new Combination([0, 2, 3, 5]), new Combination([1, 2, 3, 4])];
+
+        $this->render(ROOT_DIR . 'view/play.php', compact('combinations'));
     }
 
     /**
