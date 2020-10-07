@@ -4,8 +4,8 @@
 namespace Printer;
 
 
-use Model\Combination;
 use Model\Master;
+use Model\ResultWithCombination;
 
 class HtmlCombinationPrinter
 {
@@ -18,17 +18,31 @@ class HtmlCombinationPrinter
     }
 
     /**
-     * Renvoi le code Html d'une combinaison
-     * @param Combination $combination
+     * renvoie le code Html d'une ligne d'un résultat d'une comparaison entre la combinaison
+     * à trouver et une proposée, ainsi que la combinaison proposée
+     * @param ResultWithCombination $resultWithCombination
      * @return string
      */
-    public function print(Combination $combination): string
+    public function printResultWithCombination(ResultWithCombination $resultWithCombination): string
     {
-        $line = '<p class="combi-tried">';
-        foreach ($combination->getPaws() as $value) {
+        $blackPaws = $resultWithCombination->getCompareResult()->getBlackPaws();
+        $whitePaws = $resultWithCombination->getCompareResult()->getWhitePaws();
+        $line = '<p class="well-placed">';
+        for ($i = 1; $i <= $blackPaws; $i++) {
+            $line .= '<span></span>';
+        }
+        $line .= '</p>';
+        $line .= '<p class="combi-tried">';
+        foreach ($resultWithCombination->getCombination()->getPaws() as $value) {
             $line .= '<span class="' . Master::COLORS[$value] . '"></span>';
         }
-        return $line . '</p>';
+        $line .= '</p>';
+        $line .= '<p class="mis-placed">';
+        for ($i = 1; $i <= $whitePaws; $i++) {
+            $line .= '<span></span>';
+        }
+        $line .= '</p>';
+        return $line;
     }
 
 }

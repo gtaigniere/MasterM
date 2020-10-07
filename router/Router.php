@@ -15,7 +15,7 @@ class Router
     private $params;
 
     /**
-     * RouterNew constructor.
+     * Router constructor.
      * @param array $params
      */
     public function __construct(array $params)

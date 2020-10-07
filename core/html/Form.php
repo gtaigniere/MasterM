@@ -38,7 +38,7 @@ class Form
     }
 
     /**
-     * Renvoi l'ensemble des valeurs des champs du formulaire
+     * renvoie l'ensemble des valeurs des champs du formulaire
      * @return array
      */
     public function getDatas(): array
@@ -47,10 +47,10 @@ class Form
     }
 
     /**
-     * Renvoi la ou les valeurs associées à la clef passée en paramètres
+     * renvoie la ou les valeurs associées à la clef passée en paramètres
      * @param string $key
      * @return array|string|null Peut être un tableau, une chaîne de caractères, ou null.
-     * Si la clef n'existe pas, renvoi null
+     * Si la clef n'existe pas, renvoie null
      */
     public function getValue($key)
     {
@@ -58,7 +58,7 @@ class Form
     }
 
     /**
-     * Renvoi un string contenant l'input d'un formulaire en fonction des paramètres fournis
+     * renvoie un string contenant l'input d'un formulaire en fonction des paramètres fournis
      * Si une valeur est associée à l'attribut $name, elle sera associée au champs "value" de l'html
      * Si un type est donné dans le tableau $options tel que : $options['type'] = 'givenType'
      * alors <input type="givenType" ...> sinon par défaut le type sera "text"
@@ -90,7 +90,7 @@ class Form
     }
 
     /**
-     * Renvoi un string contenant le textarea d'un formulaire en fonction des paramètres fournis
+     * renvoie un string contenant le textarea d'un formulaire en fonction des paramètres fournis
      * Si une valeur est associée à l'attribut $name, elle sera associée au contenu de la balise textarea
      * @param string $name Correspond aux champs "name" et "id" du textarea
      * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
@@ -112,7 +112,7 @@ class Form
     }
 
     /**
-     * Renvoi un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
+     * renvoie un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
      * @param string $name Correspond au nom du champ du select
      * @return array
      */
@@ -123,7 +123,7 @@ class Form
     }
 
     /**
-     * Renvoi un string contenant le select d'un formulaire en fonction des paramètres fournis
+     * renvoie un string contenant le select d'un formulaire en fonction des paramètres fournis
      * @param string $name Correspond aux champs "name" et "id" du select
      * @param array $values Tableau associatif dont chaque clef et sa valeur associée correspondent
      * respectivement au champ "value" et au text d'une balise option du select tel que :
@@ -153,8 +153,8 @@ class Form
             $html .= '<option value="' . self::DEFAULT_VALUE . '"' . (empty($selecteds) ? ' selected' : '') . '>' . $defaultOption . '</option>';
         }
         foreach($values as $key => $value) {
-            // $this->getValue('language') renvoi l'id du language à sélectionner
-            // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
+            // $this->getValue('language') renvoie l'id du language à sélectionner
+            // $this->getValue('cats') renvoie un tableau contenant les ids des catégories à sélectionner
             $html .= '<option value="' . $key . '"' . (in_array($key, $selecteds) ? ' selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';

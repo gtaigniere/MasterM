@@ -3,7 +3,11 @@
 
 namespace Model;
 
-
+/**
+ * Représente une combinaison proposée
+ * Class Combination
+ * @package Model
+ */
 class Combination
 {
     /**

@@ -7,6 +7,8 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 use Manager\MasterManager;
 use Model\Combination;
+use Model\CompareResult;
+use Model\ResultWithCombination;
 
 /**
  * Class MasterController
@@ -36,12 +38,16 @@ class MasterController extends Controller
     public function play(): void
     {
         $combinations = [new Combination([0, 2, 3, 5]), new Combination([1, 2, 3, 4])];
-
-        $this->render(ROOT_DIR . 'view/play.php', compact('combinations'));
+        $compareResults = [new CompareResult(1, 2), new CompareResult(2, 1)];
+        $resultWithCombinations = [];
+        for ($i = 0; $i < count($combinations); $i++) {
+            $resultWithCombinations[] = new ResultWithCombination($combinations[$i], $compareResults[$i]);
+        }
+        $this->render(ROOT_DIR . 'view/play.php', compact('resultWithCombinations'));
     }
 
     /**
-     * Renvoi vers la page lorsqu'une ressource n'a pas été trouvée
+     * Renvoie vers la page lorsqu'une ressource n'a pas été trouvée
      * @return void
      */
     public function notFound(): void

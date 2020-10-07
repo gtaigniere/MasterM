@@ -9,12 +9,16 @@ use Printer\HtmlCombinationPrinter;
 
     <h1>Master Mind</h1>
 
-    <?php $printer = new HtmlCombinationPrinter(); ?>
+    <?php $printerLine = new HtmlCombinationPrinter(); ?>
 
-    <?php foreach ($combinations as $combination) : ?>
+    <?php foreach ($resultWithCombinations as $resultWithCombination) : ?>
+
         <div class="combi-line">
-            <?= $printer->print($combination); ?>
+
+            <?= $printerLine->printResultWithCombination($resultWithCombination); ?>
+
         </div>
+
     <?php endforeach; ?>
 
 </section>
