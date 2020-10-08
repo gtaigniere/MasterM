@@ -17,9 +17,9 @@ use Printer\ResultPrinter;
 
         <div class="combi-line">
 
-            <?= $resultPrinter->printCompareResult($compareResults[$i], 'black'); ?>
+            <?= $resultPrinter->printPawsBlackFromCompareResult($compareResults[$i]); ?>
             <?= $combiPrinter->printCombination($combinations[$i]); ?>
-            <?= $resultPrinter->printCompareResult($compareResults[$i], 'white'); ?>
+            <?= $resultPrinter->printPawsWhiteFromCompareResult($compareResults[$i]); ?>
 
         </div>
 
