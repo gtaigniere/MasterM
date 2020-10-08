@@ -3,7 +3,6 @@
 
 namespace Model;
 
-
 /**
  * Class Master
  * @package Model
@@ -18,14 +17,9 @@ class Master
 
     /**
      * Combinaisons proposées
-     * @var Combination[] $combinationProposal
+     * @var Combination[] $combinationsProposals
      */
-    private $combinationProposal;
-
-    /**
-     * Tableau contenant les chiffres possibles pour chaque partie de la combinaison
-     */
-    const COLORS = ["rouge", "vert", "bleu", "noir", "blanc", "jaune"];
+    private $combinationsProposals;
 
     /**
      * Master constructor.
@@ -33,7 +27,7 @@ class Master
     public function __construct()
     {
         $this->combinationToFind = [];
-        $this->combinationProposal = [];
+        $this->combinationsProposals = [];
     }
 
     /**
@@ -55,31 +49,17 @@ class Master
     /**
      * @return array
      */
-    public function getCombinationProposal()
+    public function getCombinationsProposals()
     {
-        return $this->combinationProposal;
+        return $this->combinationsProposals;
     }
 
     /**
-     * @param array $combinationProposal
+     * @param array $combinationsProposals
      */
-    public function setCombinationProposal($combinationProposal)
+    public function setCombinationsProposals($combinationsProposals)
     {
-        $this->combinationProposal = $combinationProposal;
-    }
-
-    /**
-     * Sélectionne une combinaison au hazard
-     * @return array
-     */
-    public function randomCombination(): array
-    {
-        $combination = [];
-        for ($i = 0; $i <= 3; $i++) {
-            $number = rand(0, 5);
-            $combination[] = $this::COLORS[$number];
-        }
-        return $combination;
+        $this->combinationsProposals = $combinationsProposals;
     }
 
 }

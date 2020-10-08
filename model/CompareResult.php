@@ -11,7 +11,6 @@ namespace Model;
  */
 class CompareResult
 {
-
     /**
      * Nombre de pions noirs du résultat
      * @var int $blackPaws

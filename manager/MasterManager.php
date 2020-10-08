@@ -26,7 +26,7 @@ class MasterManager
     {
         $master = new Master();
         $master->setCombinationToFind(array_key_exists('combinationToFind', $_SESSION) ? $_SESSION['combinationToFind'] : []);
-        $master->setCombinationProposal(array_key_exists('combinationProposal', $_SESSION) ? $_SESSION['combinationProposal'] : []);
+        $master->setCombinationsProposals(array_key_exists('combinationProposal', $_SESSION) ? $_SESSION['combinationsProposals'] : []);
         return $master;
     }
 
@@ -37,7 +37,7 @@ class MasterManager
     public function save(Master $master): void
     {
         $_SESSION['combinationToFind'] = $master->getCombinationToFind();
-        $_SESSION['combinationProposal'] = $master->getCombinationProposal();
+        $_SESSION['combinationsProposals'] = $master->getCombinationsProposals();
     }
 
 }

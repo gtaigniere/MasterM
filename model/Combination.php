@@ -17,6 +17,12 @@ class Combination
     private $paws;
 
     /**
+     *
+     * Tableau contenant les chiffres possibles pour chaque partie de la combinaison
+     */
+    const COLORS = ["rouge", "vert", "bleu", "noir", "blanc", "jaune"];
+
+    /**
      * Combination constructor.
      * @param $paws
      */
@@ -39,6 +45,20 @@ class Combination
     public function setPaws(array $paws): void
     {
         $this->paws = $paws;
+    }
+
+    /**
+     * Sélectionne une combinaison au hazard
+     * @return Combination
+     */
+    public function randomCombination(): Combination
+    {
+        $combination = [];
+        for ($i = 0; $i <= 3; $i++) {
+            $number = rand(0, 5);
+            $combination[] = $number;
+        }
+        return new Combination($combination);
     }
 
 }

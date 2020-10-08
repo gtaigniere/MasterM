@@ -6,9 +6,12 @@ namespace Printer;
 
 use Model\CompareResult;
 
+/**
+ * Class ResultPrinter
+ * @package Printer
+ */
 class ResultPrinter
 {
-
     /**
      * ResultPrinter constructor.
      */

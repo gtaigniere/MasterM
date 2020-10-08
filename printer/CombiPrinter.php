@@ -5,11 +5,13 @@ namespace Printer;
 
 
 use Model\Combination;
-use Model\Master;
 
+/**
+ * Class CombiPrinter
+ * @package Printer
+ */
 class CombiPrinter
 {
-
     /**
      * CombiPrinter constructor.
      */
@@ -26,7 +28,7 @@ class CombiPrinter
     {
         $partLine = '<p class="combi-tried">';
         foreach ($combination->getPaws() as $value) {
-            $partLine .= '<span class="' . Master::COLORS[$value] .'"></span>';
+            $partLine .= '<span class="' . Combination::COLORS[$value] .'"></span>';
         }
         $partLine .= '</p>';
         return $partLine;
