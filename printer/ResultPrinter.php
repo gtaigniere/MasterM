@@ -26,7 +26,7 @@ class ResultPrinter
      * @param CompareResult $compareResult
      * @return string
      */
-    public function printPawsBlackFromCompareResult(CompareResult $compareResult): string
+    public function printBlack(CompareResult $compareResult): string
     {
         $partLine = '';
         $paws = $compareResult->getBlackPaws();
@@ -45,7 +45,7 @@ class ResultPrinter
      * @param CompareResult $compareResult
      * @return string
      */
-    public function printPawsWhiteFromCompareResult(CompareResult $compareResult): string
+    public function printWhite(CompareResult $compareResult): string
     {
         $partLine = '';
         $paws = $compareResult->getWhitePaws();

@@ -26,8 +26,8 @@ class CombiComparator
     {
         $pionsBiensPlacesRetires = [];
         $pionsMalsPlacesRetires = [];
-        $compteurPionsNoirs = 0;
-        $compteurPionsBlancs = 0;
+        $counterBlackPaws = 0;
+        $counterWhitePaws = 0;
         $tabCombiToFind = $combiToFind->getPaws();
         $tabCombination = $combination->getPaws();
         echo 'Pions de la combinaison à trouver  : ';
@@ -43,7 +43,7 @@ class CombiComparator
         // On regarde combien il y a de pions biens placés
         for ($i = 0; $i < count($tabCombiToFind); $i++) {
             if ($tabCombiToFind[$i] == $tabCombination[$i]) {
-                $compteurPionsNoirs++;
+                $counterBlackPaws++;
                 $pionsBiensPlacesRetires[] = array_splice($tabCombiToFind, $i, 1);
                 array_splice($tabCombination, $i, 1);
                 $i--;
@@ -53,7 +53,7 @@ class CombiComparator
         for ($i = 0; $i < count($tabCombiToFind); $i++) {
             for ($j = 0; $j < count($tabCombination); $j++) {
                 if ($tabCombiToFind[$i] == $tabCombination[$j]) {
-                    $compteurPionsBlancs++;
+                    $counterWhitePaws++;
                     $pionsMalsPlacesRetires[] = array_splice($tabCombiToFind, $i, 1);
                     array_splice($tabCombination, $j, 1);
                     if ($i > 0) {
@@ -63,9 +63,9 @@ class CombiComparator
                 }
             }
         }
-        echo 'Nombre de pions biens placés => ' . $compteurPionsNoirs;
+        echo 'Nombre de pions biens placés => ' . $counterBlackPaws;
         echo '<br><br>';
-        echo 'Nombre de pions mals placés  => ' . $compteurPionsBlancs;
+        echo 'Nombre de pions mals placés  => ' . $counterWhitePaws;
         echo '<br><br>';
         echo 'Pion(s) de la bonne couleur et bien(s) placé(s) :  ';
         foreach ($pionsBiensPlacesRetires as $tabs) {
@@ -80,7 +80,7 @@ class CombiComparator
                 echo $value . ' ';
             }
         }
-        return new CompareResult($compteurPionsNoirs, $compteurPionsBlancs);
+        return new CompareResult($counterBlackPaws, $counterWhitePaws);
     }
 
 }
