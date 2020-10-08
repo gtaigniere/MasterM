@@ -39,11 +39,6 @@ class MasterController extends Controller
     {
         $combinations = [new Combination([0, 2, 3, 5]), new Combination([1, 2, 3, 4])];
         $compareResults = [new CompareResult(1, 2), new CompareResult(2, 1)];
-        $resultWithCombinations = [];
-        for ($i = 0; $i < count($combinations); $i++) {
-            $resultWithCombinations[] = new ResultWithCombination($combinations[$i], $compareResults[$i]);
-        }
-        $this->render(ROOT_DIR . 'view/play.php', compact('resultWithCombinations'));
+        $this->render(ROOT_DIR . 'view/play.php', compact('combinations', 'compareResults'));
     }
-
 }

@@ -1,7 +1,8 @@
 <?php
 
 
-use Printer\HtmlCombinationPrinter;
+use Printer\CombiPrinter;
+use Printer\ResultPrinter;
 
 ?>
 
@@ -9,16 +10,19 @@ use Printer\HtmlCombinationPrinter;
 
     <h1>Master Mind</h1>
 
-    <?php $printerLine = new HtmlCombinationPrinter(); ?>
+    <?php $combiPrinter = new CombiPrinter(); ?>
+    <?php $resultPrinter = new ResultPrinter(); ?>
 
-    <?php foreach ($resultWithCombinations as $resultWithCombination) : ?>
+    <?php for ($i = 0; $i < count($compareResults); $i++) : ?>
 
         <div class="combi-line">
 
-            <?= $printerLine->printResultWithCombination($resultWithCombination); ?>
+            <?= $resultPrinter->printCompareResult($compareResults[$i], 'black'); ?>
+            <?= $combiPrinter->printCombination($combinations[$i]); ?>
+            <?= $resultPrinter->printCompareResult($compareResults[$i], 'white'); ?>
 
         </div>
 
-    <?php endforeach; ?>
+    <?php endfor; ?>
 
 </section>
