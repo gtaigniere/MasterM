@@ -18,7 +18,7 @@ class HtmlCombinationPrinter
     }
 
     /**
-     * renvoie le code Html d'une ligne d'un résultat d'une comparaison entre la combinaison
+     * Renvoie le code Html d'une ligne d'un résultat d'une comparaison entre la combinaison
      * à trouver et une proposée, ainsi que la combinaison proposée
      * @param ResultWithCombination $resultWithCombination
      * @return string

@@ -46,13 +46,4 @@ class MasterController extends Controller
         $this->render(ROOT_DIR . 'view/play.php', compact('resultWithCombinations'));
     }
 
-    /**
-     * Renvoie vers la page lorsqu'une ressource n'a pas été trouvée
-     * @return void
-     */
-    public function notFound(): void
-    {
-        $this->render(ROOT_DIR . 'view/not_found.php', []);
-    }
-
 }

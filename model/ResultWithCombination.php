@@ -3,7 +3,12 @@
 
 namespace Model;
 
-
+/**
+ * Représente une combinaison proposée avec le résultat d'une comparaison
+ * entre la combinaison cité ci-dessus et celle à trouver
+ * Class ResultWithCombination
+ * @package Model
+ */
 class ResultWithCombination
 {
 

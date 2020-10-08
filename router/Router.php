@@ -29,9 +29,4 @@ class Router
         $ctrl->play();
     }
 
-    private function notFound(): void
-    {
-        (new MasterController())->notFound();
-    }
-
 }
