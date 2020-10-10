@@ -5,10 +5,9 @@ namespace Ctrl;
 
 
 use Core\Ctrl\Controller;
-use Manager\MasterManager;
 use Model\CombiComparator;
 use Model\Combination;
-use Model\CompareResult;
+use Model\RandomCombiGenerator;
 
 /**
  * Class MasterController
@@ -17,17 +16,11 @@ use Model\CompareResult;
 class MasterController extends Controller
 {
     /**
-     * @var MasterManager
-     */
-    private $masterManager;
-
-    /**
      * MasterController constructor.
      * @param string $template
      */
     public function __construct(string $template = ROOT_DIR . 'view/template.php')
     {
-        $this->masterManager = new MasterManager();
         parent::__construct($template);
     }
 
@@ -37,17 +30,16 @@ class MasterController extends Controller
      */
     public function play(): void
     {
-        $combiToFind = (new Combination([]))->randomCombination();
+        $solution = (new RandomCombiGenerator())->generate(4, 6);
 
-        $combinations = [new Combination([0, 1, 4, 5]), new Combination([1, 2, 3, 4])];
-        $compareResults = [new CompareResult(1, 2)];
+        $propositions = [new Combination([0, 1, 4, 5]), new Combination([1, 2, 3, 4])];
 
-        $combination = $combinations[count($combinations) - 1];
-        $compareResult = (new CombiComparator())->combiCompare($combiToFind, $combination);
+        $compareResults = [];
+        foreach ($propositions as $proposition) {
+            $compareResults[] = (new CombiComparator($solution))->compare($proposition);
+        }
 
-        $compareResults[] = $compareResult;
-
-        $this->render(ROOT_DIR . 'view/play.php', compact('combinations', 'compareResults'));
+        $this->render(ROOT_DIR . 'view/play.php', compact('propositions', 'compareResults', 'solution'));
     }
 
 }

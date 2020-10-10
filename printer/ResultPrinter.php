@@ -34,8 +34,7 @@ class ResultPrinter
         for ($i = 1; $i <= $paws; $i++) {
             $partLine .= '<span></span>';
         }
-        $partLine .= '</p>';
-        return $partLine;
+        return $partLine . '</p>';
     }
 
     /**
@@ -53,8 +52,7 @@ class ResultPrinter
         for ($i = 1; $i <= $paws; $i++) {
             $partLine .= '<span></span>';
         }
-        $partLine .= '</p>';
-        return $partLine;
+        return $partLine . '</p>';
     }
 
 }

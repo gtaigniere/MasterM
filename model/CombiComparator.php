@@ -4,58 +4,53 @@
 namespace Model;
 
 /**
- * Class CombiComparator
+ * Permet de comparer une combinaison fournie à la solution
  * @package Model
  */
 class CombiComparator
 {
     /**
-     * CombiComparator constructor.
+     * Combinaison à trouver
+     * @var Combination $solution
      */
-    public function __construct()
+    private $solution;
+
+    /**
+     * CombiComparator constructor.
+     * @param Combination $solution
+     */
+    public function __construct(Combination $solution)
     {
+        $this->solution = $solution;
     }
 
     /**
-     *
-     * @param Combination $combiToFind
-     * @param Combination $combination
+     * Compare la combinaison à trouver avec une proposée
+     * @param Combination $propositionPaws
      * @return CompareResult
      */
-    public function combiCompare(Combination $combiToFind, Combination $combination): CompareResult
+    public function compare(Combination $propositionPaws): CompareResult
     {
-        $pionsBiensPlacesRetires = [];
-        $pionsMalsPlacesRetires = [];
-        $counterBlackPaws = 0;
-        $counterWhitePaws = 0;
-        $tabCombiToFind = $combiToFind->getPaws();
-        $tabCombination = $combination->getPaws();
-        echo 'Pions de la combinaison à trouver  : ';
-        foreach ($tabCombiToFind as $value) {
-            echo $value . ' ';
-        }
-        echo '<br><br>';
-        echo 'Pions de la combinaison proposée : ';
-        foreach ($tabCombination as $value) {
-            echo $value . ' ';
-        }
-        echo '<br><br>';
+        $black = 0;
+        $white = 0;
+        $solutionPaws = $this->solution->getPaws();
+        $propositionPaws = $propositionPaws->getPaws();
         // On regarde combien il y a de pions biens placés
-        for ($i = 0; $i < count($tabCombiToFind); $i++) {
-            if ($tabCombiToFind[$i] == $tabCombination[$i]) {
-                $counterBlackPaws++;
-                $pionsBiensPlacesRetires[] = array_splice($tabCombiToFind, $i, 1);
-                array_splice($tabCombination, $i, 1);
+        for ($i = 0; $i < count($solutionPaws); $i++) {
+            if ($solutionPaws[$i] == $propositionPaws[$i]) {
+                $black++;
+                array_splice($solutionPaws, $i, 1);
+                array_splice($propositionPaws, $i, 1);
                 $i--;
             }
         }
         // On regarde combien il y a de pions mals placés
-        for ($i = 0; $i < count($tabCombiToFind); $i++) {
-            for ($j = 0; $j < count($tabCombination); $j++) {
-                if ($tabCombiToFind[$i] == $tabCombination[$j]) {
-                    $counterWhitePaws++;
-                    $pionsMalsPlacesRetires[] = array_splice($tabCombiToFind, $i, 1);
-                    array_splice($tabCombination, $j, 1);
+        for ($i = 0; $i < count($solutionPaws); $i++) {
+            for ($j = 0; $j < count($propositionPaws); $j++) {
+                if ($solutionPaws[$i] == $propositionPaws[$j]) {
+                    $white++;
+                    array_splice($solutionPaws, $i, 1);
+                    array_splice($propositionPaws, $j, 1);
                     if ($i > 0) {
                         $i--;
                     }
@@ -63,24 +58,7 @@ class CombiComparator
                 }
             }
         }
-        echo 'Nombre de pions biens placés => ' . $counterBlackPaws;
-        echo '<br><br>';
-        echo 'Nombre de pions mals placés  => ' . $counterWhitePaws;
-        echo '<br><br>';
-        echo 'Pion(s) de la bonne couleur et bien(s) placé(s) :  ';
-        foreach ($pionsBiensPlacesRetires as $tabs) {
-            foreach ($tabs as $value) {
-                echo $value . ' ';
-            }
-        }
-        echo '<br><br>';
-        echo 'Pion(s) de la bonne couleur et mal(s) placé(s) : ';
-        foreach ($pionsMalsPlacesRetires as $tabs) {
-            foreach ($tabs as $value) {
-                echo $value . ' ';
-            }
-        }
-        return new CompareResult($counterBlackPaws, $counterWhitePaws);
+        return new CompareResult($black, $white);
     }
 
 }

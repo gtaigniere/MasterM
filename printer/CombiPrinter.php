@@ -30,8 +30,7 @@ class CombiPrinter
         foreach ($combination->getPaws() as $value) {
             $partLine .= '<span class="' . Combination::COLORS[$value] .'"></span>';
         }
-        $partLine .= '</p>';
-        return $partLine;
+        return $partLine . '</p>';
     }
 
 }
