@@ -18,15 +18,15 @@ class RandomCombiGenerator
 
     /**
      * Génère une combinaison au hazard
-     * @param int $paws Nombre de pions de la combinaison
-     * @param int $colors Nombre de couleurs possible pour chaque pion
+     * @param int $nbPaw Nombre de pions de la combinaison
+     * @param int $nbColor Nombre de couleurs possible pour chaque pion
      * @return Combination
      */
-    public function generate(int $paws, int $colors): Combination
+    public function generate(int $nbPaw, int $nbColor): Combination
     {
         $combination = [];
-        for ($i = 1; $i <= $paws; $i++) {
-            $number = rand(0, $colors);
+        for ($i = 1; $i <= $nbPaw; $i++) {
+            $number = rand(0, $nbColor);
             $combination[] = $number;
         }
         return new Combination($combination);
