@@ -5,10 +5,9 @@ namespace Ctrl;
 
 
 use Core\Ctrl\Controller;
-use Manager\MasterManager;
+use Model\CombiComparator;
 use Model\Combination;
-use Model\CompareResult;
-use Model\ResultWithCombination;
+use Model\RandomCombiGenerator;
 
 /**
  * Class MasterController
@@ -17,17 +16,11 @@ use Model\ResultWithCombination;
 class MasterController extends Controller
 {
     /**
-     * @var MasterManager
-     */
-    private $masterManager;
-
-    /**
      * MasterController constructor.
      * @param string $template
      */
     public function __construct(string $template = ROOT_DIR . 'view/template.php')
     {
-        $this->masterManager = new MasterManager();
         parent::__construct($template);
     }
 
@@ -37,8 +30,16 @@ class MasterController extends Controller
      */
     public function play(): void
     {
-        $combinations = [new Combination([0, 2, 3, 5]), new Combination([1, 2, 3, 4])];
-        $compareResults = [new CompareResult(1, 2), new CompareResult(2, 1)];
-        $this->render(ROOT_DIR . 'view/play.php', compact('combinations', 'compareResults'));
+        $solution = (new RandomCombiGenerator())->generate(4, 6);
+
+        $propositions = [new Combination([0, 1, 4, 5]), new Combination([1, 2, 3, 4])];
+
+        $compareResults = [];
+        foreach ($propositions as $proposition) {
+            $compareResults[] = (new CombiComparator($solution))->compare($proposition);
+        }
+
+        $this->render(ROOT_DIR . 'view/play.php', compact('propositions', 'compareResults', 'solution'));
     }
+
 }

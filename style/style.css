@@ -132,11 +132,20 @@ section div p {
 .combi-tried span.rouge {
 	background: red;
 }
+.combi-tried span.orange {
+	background: orange;
+}
+.combi-tried span.jaune {
+	background: yellow;
+}
 .combi-tried span.vert {
 	background: green;
 }
 .combi-tried span.bleu {
 	background: blue
+}
+.combi-tried span.violet {
+	background: violet;
 }
 .combi-tried span.noir {
 	background: black;
@@ -144,9 +153,7 @@ section div p {
 .combi-tried span.blanc {
 	background: white;
 }
-.combi-tried span.jaune {
-	background: yellow;
-}
+
 .mis-placed {
 	margin: auto;
 	display: flex;

@@ -17,6 +17,12 @@ class Combination
     private $paws;
 
     /**
+     *
+     * Tableau contenant les couleurs possibles pour chaque pion de la combinaison
+     */
+    const COLORS = ["rouge", "orange", "jaune", "vert", "bleu", "violet", "noir", "blanc"];
+
+    /**
      * Combination constructor.
      * @param $paws
      */
