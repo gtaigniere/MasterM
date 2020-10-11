@@ -119,10 +119,11 @@ section div p {
 .combi-tried {
 	display: flex;
 	justify-content: space-around;
-	width: 300px;
+	width: auto;
 	height: 36px;
 }
 .combi-tried span {
+	margin: 0 14px;
 	display: inline-block;
 	width: 36px;
 	/*border: 1px solid grey;*/

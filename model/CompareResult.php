@@ -6,7 +6,6 @@ namespace Model;
 /**
  * Représente le résultat d'une comparaison
  * entre une combinaison proposée et celle à trouver
- * Class CompareResult
  * @package Model
  */
 class CompareResult

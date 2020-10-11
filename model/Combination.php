@@ -5,14 +5,13 @@ namespace Model;
 
 /**
  * Représente une combinaison proposée
- * Class Combination
  * @package Model
  */
 class Combination
 {
     /**
      * Combinaison
-     * @var array $paws
+     * @var int[] $paws
      */
     private $paws;
 
@@ -24,7 +23,7 @@ class Combination
 
     /**
      * Combination constructor.
-     * @param $paws
+     * @param int[] $paws
      */
     public function __construct(array $paws)
     {
@@ -32,7 +31,7 @@ class Combination
     }
 
     /**
-     * @return array
+     * @return int[]
      */
     public function getPaws(): array
     {
@@ -40,7 +39,7 @@ class Combination
     }
 
     /**
-     * @param array $paws
+     * @param int[] $paws
      */
     public function setPaws(array $paws): void
     {
