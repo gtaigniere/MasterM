@@ -38,7 +38,7 @@ class Form
     }
 
     /**
-     * rrenvoie l'ensemble des valeurs des champs du formulaire
+     * Renvoie l'ensemble des valeurs des champs du formulaire
      * @return array
      */
     public function getDatas(): array
@@ -47,7 +47,7 @@ class Form
     }
 
     /**
-     * renvoie la ou les valeurs associées à la clef passée en paramètres
+     * Renvoie la ou les valeurs associées à la clef passée en paramètres
      * @param string $key
      * @return array|string|null Peut être un tableau, une chaîne de caractères, ou null.
      * Si la clef n'existe pas, renvoie null
@@ -58,7 +58,7 @@ class Form
     }
 
     /**
-     * renvoie un string contenant l'input d'un formulaire en fonction des paramètres fournis
+     * Renvoie un string contenant l'input d'un formulaire en fonction des paramètres fournis
      * Si une valeur est associée à l'attribut $name, elle sera associée au champs "value" de l'html
      * Si un type est donné dans le tableau $options tel que : $options['type'] = 'givenType'
      * alors <input type="givenType" ...> sinon par défaut le type sera "text"
@@ -90,7 +90,7 @@ class Form
     }
 
     /**
-     * renvoie un string contenant le textarea d'un formulaire en fonction des paramètres fournis
+     * Renvoie un string contenant le textarea d'un formulaire en fonction des paramètres fournis
      * Si une valeur est associée à l'attribut $name, elle sera associée au contenu de la balise textarea
      * @param string $name Correspond aux champs "name" et "id" du textarea
      * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
@@ -112,7 +112,7 @@ class Form
     }
 
     /**
-     * renvoie un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
+     * Renvoie un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
      * @param string $name Correspond au nom du champ du select
      * @return array
      */

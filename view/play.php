@@ -1,7 +1,6 @@
 <?php
 
 
-use Printer\ColorsPrinter;
 use Printer\CombiPrinter;
 use Printer\ResultPrinter;
 
