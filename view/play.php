@@ -19,17 +19,17 @@ if (isset($solution, $compareResults, $propositions, $colors)) :
     <?= $combiPrinter->print($colors); ?>
     <?= $combiPrinter->print($solution); ?>
 
-    <?php for ($i = 0; $i < count($compareResults); $i++) : ?>
+    <?php foreach ($compareResults as $i => $compareResult) : ?>
 
         <div class="combi-line">
 
-            <?= $resultPrinter->printBlack($compareResults[$i]); ?>
+            <?= $resultPrinter->printBlack($compareResult); ?>
             <?= $combiPrinter->print($propositions[$i]); ?>
-            <?= $resultPrinter->printWhite($compareResults[$i]); ?>
+            <?= $resultPrinter->printWhite($compareResult); ?>
 
         </div>
 
-    <?php endfor; ?>
+    <?php endforeach; ?>
 
 </section>
 

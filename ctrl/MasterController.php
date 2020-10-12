@@ -9,6 +9,7 @@ use Model\CombiComparator;
 use Model\Combination;
 use Model\Mastermind;
 use Model\RandomCombiGenerator;
+use Printer\CombiPrinter;
 
 /**
  * Class MasterController
