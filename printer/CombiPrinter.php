@@ -24,11 +24,11 @@ class CombiPrinter
      * @param Combination $combination
      * @return string
      */
-    public function printCombination(Combination $combination): string
+    public function print(Combination $combination): string
     {
         $partLine = '<p class="combi-tried">';
         foreach ($combination->getPaws() as $value) {
-            $partLine .= '<span class="' . Combination::COLORS[$value] .'"></span>';
+            $partLine .= '<span class="' . Combination::COLORS[$value] . '"></span>';
         }
         return $partLine . '</p>';
     }

@@ -7,7 +7,9 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 use Model\CombiComparator;
 use Model\Combination;
+use Model\Mastermind;
 use Model\RandomCombiGenerator;
+use Printer\CombiPrinter;
 
 /**
  * Class MasterController
@@ -30,16 +32,21 @@ class MasterController extends Controller
      */
     public function play(): void
     {
-        $solution = (new RandomCombiGenerator())->generate(4, 6);
+        $nbPaw = 4;
+        $generator = new RandomCombiGenerator();
 
-        $propositions = [new Combination([0, 1, 4, 5]), new Combination([1, 2, 3, 4])];
+        $solution = $generator->generate($nbPaw, Mastermind::MEDIUM, false);
+
+        $propositions = [new Combination([0, 1, 3, 6]), new Combination([1, 2, 3, 4])];
 
         $compareResults = [];
+        $comparator = new CombiComparator($solution);
         foreach ($propositions as $proposition) {
-            $compareResults[] = (new CombiComparator($solution))->compare($proposition);
+            $compareResults[] = $comparator->compare($proposition);
         }
+        $colors = new Combination(Mastermind::MEDIUM);
 
-        $this->render(ROOT_DIR . 'view/play.php', compact('propositions', 'compareResults', 'solution'));
+        $this->render(ROOT_DIR . 'view/play.php', compact('propositions', 'compareResults', 'solution', 'colors'));
     }
 
 }

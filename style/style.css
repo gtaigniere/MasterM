@@ -112,20 +112,19 @@ section div p {
 	display: inline-block;
 	background: black;
 	width: 16px;
-	/*border: 1px solid grey;*/
 	border-radius: 50%;
 	text-align: center;
 }
 .combi-tried {
 	display: flex;
 	justify-content: space-around;
-	width: 300px;
+	width: auto;
 	height: 36px;
 }
 .combi-tried span {
+	margin: 0 14px;
 	display: inline-block;
 	width: 36px;
-	/*border: 1px solid grey;*/
 	border-radius: 50%;
 	text-align: center;
 }
@@ -167,7 +166,6 @@ section div p {
 	display: inline-block;
 	background: white;
 	width: 16px;
-	/*border: 1px solid grey;*/
 	border-radius: 50%;
 	text-align: center;
 }
