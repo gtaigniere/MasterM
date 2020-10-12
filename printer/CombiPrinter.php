@@ -36,20 +36,20 @@ class CombiPrinter
     /**
      * Renvoie le code Html d'une combinaison pour la partie
      * @param Combination $combination
-     * @param array $colors Couleurs possibles pour la partie
+     * @param string[] $colors Couleurs possibles pour la partie
      * @return string
      */
-    public function printColorCombination(Combination $combination, array $colors): string
+    public function printColors(Combination $combination, array $colors): string
     {
-        $partLine = '<p class="combi-tried">';
+        $line = '<p class="combi-tried">';
         foreach ($combination->getPaws() as $value) {
             for ($i = 0; $i < count($colors); $i++) {
-                if ($colors[$i] == $value) {
-                    $partLine .= '<span class="' . $colors[$i] . '"></span>';
+                if ($colors[$i] === $value) {
+                    $line .= '<span class="' . $colors[$i] . '"></span>';
                 }
             }
         }
-        return $partLine . '</p>';
+        return $line . '</p>';
     }
 
 }

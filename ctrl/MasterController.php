@@ -7,8 +7,10 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 use Model\CombiComparator;
 use Model\Combination;
+use Model\CompareResult;
 use Model\Mastermind;
 use Model\RandomCombiGenerator;
+use Printer\CombiPrinter;
 
 /**
  * Class MasterController
@@ -43,6 +45,8 @@ class MasterController extends Controller
         foreach ($propositions as $proposition) {
             $compareResults[] = $comparator->compare($proposition);
         }
+        $colors = new Combination(Mastermind::MEDIUM);
+
         $this->render(ROOT_DIR . 'view/play.php', compact('propositions', 'compareResults', 'solution', 'colors'));
     }
 

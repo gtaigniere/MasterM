@@ -17,10 +17,11 @@ class RandomCombiGenerator
     }
 
     /**
-     * Génère une combinaison au hazard
+     * Génère une combinaison aléatoire de taille "$nbPaw" composée des valeurs "$values"
      * @param int $nbPaw Nombre de pions de la combinaison
-     * @param array $values Couleurs possibles pour chaque pion
-     * @param bool $duplicate Autorise la duplication dans la combinaison ou non
+     * @param int[] $values Couleurs possibles pour chaque pion
+     * @param bool $duplicate Si "true", autorise plusieurs valeurs identiques dans la combinaison,
+     * sinon toutes les valeurs de la combinaison seront uniques
      * @return Combination
      */
     public function generate(int $nbPaw, array $values, bool $duplicate = true): Combination
