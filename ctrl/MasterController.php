@@ -7,10 +7,8 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 use Model\CombiComparator;
 use Model\Combination;
-use Model\CompareResult;
 use Model\Mastermind;
 use Model\RandomCombiGenerator;
-use Printer\CombiPrinter;
 
 /**
  * Class MasterController
