@@ -7,13 +7,14 @@ if (isset($form)) :
 
     <section id="section_accueil">
 
-        <h1><strong>MasterMind</strong></h1>
+        <h1><strong>Mastermind</strong></h1>
 
-        <p>Bonjour et bienvenue</p>
+        <p>Bonjour et bienvenue.</p>
 
-        <p>Choisissez la taille de la combinaison et sa difficulté.<br>
+        <p>Choisissez la taille de la combinaison ainsi que la difficulté.<br>
             La taille correspond au nombre de pions dont elle est composée<br>
-            alors que la difficulté correspond au nombre de couleurs possibles.</p>
+            (de 2 à 8), et la difficulté correspond au nombre de couleurs<br>
+            possibles (Easy = 4 / Medium = 6 / Hard = 8).</p>
 
         <?php if ($form instanceof Form) : ?>
 

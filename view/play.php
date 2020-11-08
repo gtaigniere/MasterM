@@ -11,7 +11,7 @@ if (isset($mastermind, $colors, $form)) :
 
     <section id="section_play">
 
-        <h1>MasterMind</h1>
+        <h1>Mastermind</h1>
 
         <p>Ci-dessous les couleurs possibles pour cette partie :</p>
 

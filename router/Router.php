@@ -52,7 +52,7 @@ class Router
     public function start(): void
     {
         $ctrl = new MastermindController();
-        $form = new Form();
+        $form = new Form($_POST);
         $ctrl->start($form);
     }
 

@@ -27,7 +27,6 @@ class CombiPrinter
     public function print(Combination $combination): string
     {
         $partLine = '<p class="combi-tried">';
-        var_dump($combination->getPaws());
         foreach ($combination->getPaws() as $value) {
             $partLine .= '<span class="' . Combination::COLORS[$value] . '"></span>';
         }
