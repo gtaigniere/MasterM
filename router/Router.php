@@ -4,7 +4,8 @@
 namespace Router;
 
 
-use Ctrl\MasterController;
+use Core\Html\Form;
+use Ctrl\MastermindController;
 
 
 class Router
@@ -25,8 +26,41 @@ class Router
 
     public function route(): void
     {
-        $ctrl = new MasterController();
-        $ctrl->play();
+        if (isset($this->params['target'])) {
+            switch ($this->params['target']) {
+                case 'start':
+                    $this->start();
+                    break;
+                case 'play':
+                    $this->play();
+                    break;
+                default:
+                    $this->home();
+            }
+        } else {
+            $this->home();
+        }
+    }
+
+    public function home(): void
+    {
+        $ctrl = new MastermindController();
+        $form = new Form();
+        $ctrl->home($form);
+    }
+
+    public function start(): void
+    {
+        $ctrl = new MastermindController();
+        $form = new Form();
+        $ctrl->start($form);
+    }
+
+    public function play(): void
+    {
+        $ctrl = new MastermindController();
+        $form = new Form($_POST);
+        $ctrl->play($form);
     }
 
 }

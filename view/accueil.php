@@ -2,26 +2,38 @@
 
 use Core\Html\Form;
 
-?>
+if (isset($form)) :
+    ?>
 
-<section id="section_accueil">
+    <section id="section_accueil">
 
-    <h1><strong>Bienvenue</strong></h1>
+        <h1><strong>MasterMind</strong></h1>
 
-    <p></p>
+        <p>Bonjour et bienvenue</p>
 
-    <?php if ($form instanceof Form) : ?>
+        <p>Choisissez la taille de la combinaison et sa difficulté.<br>
+            La taille correspond au nombre de pions dont elle est composée<br>
+            alors que la difficulté correspond au nombre de couleurs possibles.</p>
 
-        <form class="form_accueil" action="?target=start" method="POST">
+        <?php if ($form instanceof Form) : ?>
 
-            <div>
-                <?= $form->input('player', 'Prénom :', ['required' => 'required']); ?>
-            </div>
+            <form class="form_accueil" action="?target=start" method="POST">
 
-            <button class="btn btn-primary">Valider</button>
+                <div>
+                    <?= $form->select('size', [2, 3, 4, 5, 6, 7, 8],'Longueur :', null, ['required' => 'required']); ?>
+                </div>
 
-        </form>
+                <div>
+                    <?= $form->select('level', ["Easy", "Medium", "Hard"], 'Difficulté :', null, ['required' => 'required']); ?>
+                </div>
 
-    <?php endif; ?>
+                <button class="btn btn-primary">Valider</button>
 
-</section>
+            </form>
+
+        <?php endif; ?>
+
+    </section>
+
+<?php endif; ?>
+
