@@ -6,6 +6,7 @@ namespace Ctrl;
 
 use Core\Ctrl\Controller;
 use Core\Html\Form;
+use Core\Util\ErrorManager;
 use Manager\MastermindManager;
 use Model\CombiComparator;
 use Model\Combination;
@@ -44,25 +45,24 @@ class MastermindController extends Controller
     }
 
     /**
-     * Affiche la page de début du jeu
+     * Affiche la page de démarrage du jeu
      * @param Form $form
      */
     public function start(Form $form): void
     {
-        if (array_key_exists('size', $form->getDatas()) &&
-            array_key_exists('level', $form->getDatas())) {
-            $size = $form->getValue('size') + 2;
-            $level = $form->getValue('level');
+        $size = $form->getValue('size') + 2;
+        $level = $form->getValue('level');
+        if ($size != null && $level != null) {
             $mastermind = new Mastermind();
             $mastermind->setSize($size);
-            $mastermind->setLevel($level);
+            $mastermind->setLevel($level - 1);
             $generator = new RandomCombiGenerator();
+            $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
             $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], true));
             $this->mastermindManager->save($mastermind);
         }
-        $colors = new Combination(Mastermind::LEVELS[$mastermind->getLevel()]);
         $form = new Form();
-        $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'colors', 'form'));
+        $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
     }
 
     /**
@@ -72,24 +72,24 @@ class MastermindController extends Controller
      */
     public function play(Form $form): void
     {
-        $mastermind = $this->mastermindManager->find();
-        $combination = [];
-        for ($i = 0; $i < $mastermind->getSize(); $i++) {
-            $combination[] = $form->getValue('numColor' . $i);
+        if ($this->mastermindManager->find() !== null) {
+            $mastermind = $this->mastermindManager->find();
+            $combination = [];
+            for ($i = 0; $i < $mastermind->getSize(); $i++) {
+                $combination[] = $form->getValue('numColor' . $i);
+            }
+            $propositions = $mastermind->addProposition(new Combination($combination));
+            $this->mastermindManager->save($mastermind);
+            $compareResults = [];
+            $comparator = new CombiComparator($mastermind->getSolution());
+            foreach ($propositions as $proposition) {
+                $compareResults[] = $comparator->compare($proposition);
+            }
+            $form = new Form();
+            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'compareResults', 'form'));
         }
-        $propositions = $mastermind->getPropositions();
-        $propositions[] = new Combination($combination);
-        $mastermind->setPropositions($propositions);
-        $this->mastermindManager->save($mastermind);
-
-        $compareResults = [];
-        $comparator = new CombiComparator($mastermind->getSolution());
-        foreach ($propositions as $proposition) {
-            $compareResults[] = $comparator->compare($proposition);
-        }
-        $colors = new Combination(Mastermind::LEVELS[$mastermind->getLevel()]);
-        $form = new Form();
-        $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'compareResults', 'colors', 'form'));
+        ErrorManager::add('La partie n\'a pas encore été créé !');
+        $this->home(new Form());
     }
 
 }

@@ -11,6 +11,7 @@ namespace Model;
 class Mastermind
 {
 
+    // Modifier les sessions pour avoir une session mastermind
     /**
      * Taille des combinaisons
      * @var int $size
@@ -22,6 +23,12 @@ class Mastermind
      * @var int $level
      */
     private $level;
+
+    /**
+     * Couleurs utilisables
+     * @var Combination $colors
+     */
+    private $colors;
 
     /**
      * Combinaison à trouver
@@ -57,7 +64,6 @@ class Mastermind
     {
         $this->size = 0;
         $this->level = 0;
-        $this->solution = new Combination([]);
         $this->propositions = [];
         $this->remainingAttempts = 10;
     }
@@ -92,6 +98,22 @@ class Mastermind
     public function setLevel(int $level): void
     {
         $this->level = $level;
+    }
+
+    /**
+     * @return Combination
+     */
+    public function getColors(): Combination
+    {
+        return $this->colors;
+    }
+
+    /**
+     * @param Combination $colors
+     */
+    public function setColors(Combination $colors): void
+    {
+        $this->colors = $colors;
     }
 
     /**
@@ -140,6 +162,18 @@ class Mastermind
     public function setRemainingAttempts(int $remainingAttempts): void
     {
         $this->remainingAttempts = $remainingAttempts;
+    }
+
+    /**
+     * Ajoute une combinaison proposée au tableau des propositions
+     * Renvoie le tableau des combinaisons proposées (propositions)
+     * @param Combination $proposition Combinaison proposée
+     * @return Combination[]
+     */
+    public function addProposition(Combination $proposition): array
+    {
+        $this->propositions[] = $proposition;
+        return $this->propositions;
     }
 
 }

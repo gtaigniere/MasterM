@@ -1,13 +1,23 @@
 <?php
 
 use Core\Html\Form;
+use Core\Util\ErrorManager;
 
 if (isset($form)) :
-    ?>
+?>
 
     <section id="section_accueil">
 
         <h1><strong>Mastermind</strong></h1>
+
+        <?php
+        foreach (ErrorManager::getMessages() as $message) : ?>
+            <p class="alert alert-danger" role="alert">
+                <?= $message ?>
+            </p>
+        <?php endforeach;
+        ErrorManager::destroy();
+        ?>
 
         <p>Bonjour et bienvenue.</p>
 

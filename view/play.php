@@ -6,7 +6,7 @@ use Model\Combination;
 use Printer\CombiPrinter;
 use Printer\ResultPrinter;
 
-if (isset($mastermind, $colors, $form)) :
+if (isset($mastermind, $form)) :
 ?>
 
     <section id="section_play">
@@ -18,7 +18,7 @@ if (isset($mastermind, $colors, $form)) :
         <?php $combiPrinter = new CombiPrinter(); ?>
         <?php $resultPrinter = new ResultPrinter(); ?>
 
-        <?= $combiPrinter->print($colors); ?>
+        <?= $combiPrinter->print($mastermind->getColors()); ?>
         <?= $combiPrinter->print($mastermind->getSolution()); ?>
 
         <?php if (isset($compareResults)) {
