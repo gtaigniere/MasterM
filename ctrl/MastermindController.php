@@ -47,16 +47,16 @@ class MastermindController extends Controller
 
     /**
      * Affiche la page de démarrage du jeu
-     * @param Form $form
+     * @param Form $config
      */
-    public function start(Form $form): void
+    public function start(Form $config): void
     {
-        $size = $form->getValue('size') + 2;
-        $level = $form->getValue('level');
-        if ($size != null && $level != null) {
+        $size = $config->getValue('size');
+        $level = $config->getValue('level');
+        if ($size !== null && $level !== null) {
             $mastermind = new Mastermind();
             $mastermind->setSize($size);
-            $mastermind->setLevel($level - 1);
+            $mastermind->setLevel($level);
             $generator = new RandomCombiGenerator();
             $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
             $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], true));

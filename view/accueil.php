@@ -31,7 +31,7 @@ if (isset($form)) :
             <form class="form_accueil" action="?target=start" method="POST">
 
                 <div>
-                    <?= $form->select('size', [2, 3, 4, 5, 6, 7, 8],'Longueur :', null, ['required' => 'required']); ?>
+                    <?= $form->select('size', [2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8],'Longueur :', null, ['required' => 'required']); ?>
                 </div>
 
                 <div>
