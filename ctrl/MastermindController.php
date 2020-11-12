@@ -39,8 +39,9 @@ class MastermindController extends Controller
      * Affiche la page d'accueil du jeu
      * @param Form $form
      */
-    public function home(Form $form): void
+    public function home(): void
     {
+        $form = new Form();
         $this->render(ROOT_DIR . 'view/accueil.php', compact('form'));
     }
 
@@ -72,24 +73,25 @@ class MastermindController extends Controller
      */
     public function play(Form $form): void
     {
-        if ($this->mastermindManager->find() !== null) {
-            $mastermind = $this->mastermindManager->find();
+        $mastermind = $this->mastermindManager->find();
+        if ($mastermind) {
             $combination = [];
             for ($i = 0; $i < $mastermind->getSize(); $i++) {
                 $combination[] = $form->getValue('numColor' . $i);
             }
-            $propositions = $mastermind->addProposition(new Combination($combination));
+            $mastermind->addProposition(new Combination($combination));
             $this->mastermindManager->save($mastermind);
             $compareResults = [];
             $comparator = new CombiComparator($mastermind->getSolution());
-            foreach ($propositions as $proposition) {
+            foreach ($mastermind->getPropositions() as $proposition) {
                 $compareResults[] = $comparator->compare($proposition);
             }
             $form = new Form();
             $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'compareResults', 'form'));
+        } else {
+            ErrorManager::add('La partie n\'a pas encore été créé !');
+            header ('Location: index.php');
         }
-        ErrorManager::add('La partie n\'a pas encore été créé !');
-        $this->home(new Form());
     }
 
 }

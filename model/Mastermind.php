@@ -168,12 +168,10 @@ class Mastermind
      * Ajoute une combinaison proposée au tableau des propositions
      * Renvoie le tableau des combinaisons proposées (propositions)
      * @param Combination $proposition Combinaison proposée
-     * @return Combination[]
      */
-    public function addProposition(Combination $proposition): array
+    public function addProposition(Combination $proposition)
     {
         $this->propositions[] = $proposition;
-        return $this->propositions;
     }
 
 }

@@ -45,8 +45,7 @@ class Router
     public function home(): void
     {
         $ctrl = new MastermindController();
-        $form = new Form();
-        $ctrl->home($form);
+        $ctrl->home();
     }
 
     public function start(): void
