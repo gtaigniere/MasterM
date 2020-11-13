@@ -53,17 +53,23 @@ class MastermindController extends Controller
     {
         $size = $config->getValue('size');
         $level = $config->getValue('level');
-        if ($size !== null && $level !== null) {
-            $mastermind = new Mastermind();
-            $mastermind->setSize($size);
-            $mastermind->setLevel($level);
-            $generator = new RandomCombiGenerator();
-            $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
-            $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], true));
-            $this->mastermindManager->save($mastermind);
+        $duplicate = $config->getValue('duplicate') ? true : false;
+        if ($duplicate === true && $size <= count(Mastermind::LEVELS[$level])) {
+            if ($size !== null && $level !== null) {
+                $mastermind = new Mastermind();
+                $mastermind->setSize($size);
+                $mastermind->setLevel($level);
+                $generator = new RandomCombiGenerator();
+                $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
+                $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], $duplicate));
+                $this->mastermindManager->save($mastermind);
+            }
+            $form = new Form();
+            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
+        } else {
+            ErrorManager::add('Vous avez choisi un nombre de pions, pour la solution, qui est supérieur à celui de la difficulté sans doublons, ce qui n\'est pas possible !');
+            header ('Location: index.php');
         }
-        $form = new Form();
-        $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
     }
 
     /**

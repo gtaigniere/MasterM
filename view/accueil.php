@@ -21,10 +21,10 @@ if (isset($form)) :
 
         <p>Bonjour et bienvenue.</p>
 
-        <p>Choisissez la taille de la combinaison ainsi que la difficulté.<br>
-            La taille correspond au nombre de pions dont elle est composée<br>
-            (de 2 à 8), et la difficulté correspond au nombre de couleurs<br>
-            possibles (Easy = 4 / Medium = 6 / Hard = 8).</p>
+        <p>Choisissez la taille de la combinaison (de 2 à 8 pions),<br>
+            la difficulté est le nombre de couleurs possibles<br>
+            (Easy = 4 / Medium = 6 / Hard = 8), et si les doublons<br>
+            sont acceptés ou non (Cochez pour oui).</p>
 
         <?php if ($form instanceof Form) : ?>
 
@@ -36,6 +36,10 @@ if (isset($form)) :
 
                 <div>
                     <?= $form->select('level', ["Easy", "Medium", "Hard"], 'Difficulté :', null, ['required' => 'required']); ?>
+                </div>
+
+                <div>
+                    <?= $form->input('duplicate', 'Doublons :', ['type' => 'checkbox']); ?>
                 </div>
 
                 <button class="btn btn-primary">Valider</button>
