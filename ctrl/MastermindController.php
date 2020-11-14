@@ -54,7 +54,7 @@ class MastermindController extends Controller
         $size = $config->getValue('size');
         $level = $config->getValue('level');
         $duplicate = $config->getValue('duplicate') ? true : false;
-        if ($duplicate === true && $size <= count(Mastermind::LEVELS[$level])) {
+        if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
             if ($size !== null && $level !== null) {
                 $mastermind = new Mastermind();
                 $mastermind->setSize($size);
@@ -67,7 +67,7 @@ class MastermindController extends Controller
             $form = new Form();
             $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
         } else {
-            ErrorManager::add('Vous avez choisi un nombre de pions, pour la solution, qui est supérieur à celui de la difficulté sans doublons, ce qui n\'est pas possible !');
+            ErrorManager::add('Sans doublons, la taille de la solution doit être inférieure ou égale au nombre de couleurs possibles !');
             header ('Location: index.php');
         }
     }
