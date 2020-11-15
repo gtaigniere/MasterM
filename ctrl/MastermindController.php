@@ -53,7 +53,7 @@ class MastermindController extends Controller
     {
         $size = $config->getValue('size');
         $level = $config->getValue('level');
-        $duplicate = $config->getValue('duplicate') ? true : false;
+        $duplicate = (bool) $config->getValue('duplicate');
         if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
             if ($size !== null && $level !== null) {
                 $mastermind = new Mastermind();
