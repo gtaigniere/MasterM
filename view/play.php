@@ -1,36 +1,57 @@
 <?php
 
 
+use Core\Html\Form;
+use Model\Combination;
 use Printer\CombiPrinter;
 use Printer\ResultPrinter;
 
-if (isset($solution, $compareResults, $propositions, $colors)) :
+if (isset($mastermind, $form)) :
 ?>
 
-<section id="section_play">
+    <section id="section_play">
 
-    <h1>Master Mind</h1>
+        <h1>Mastermind</h1>
 
-    <p>Ci-dessous les couleurs possibles pour cette partie :</p>
+        <p>Ci-dessous les couleurs possibles pour cette partie :</p>
 
-    <?php $combiPrinter = new CombiPrinter(); ?>
-    <?php $resultPrinter = new ResultPrinter(); ?>
+        <?php $combiPrinter = new CombiPrinter(); ?>
+        <?php $resultPrinter = new ResultPrinter(); ?>
 
-    <?= $combiPrinter->print($colors); ?>
-    <?= $combiPrinter->print($solution); ?>
+        <?= $combiPrinter->print($mastermind->getColors()); ?>
+        <?= $combiPrinter->print($mastermind->getSolution()); ?>
 
-    <?php foreach ($compareResults as $i => $compareResult) : ?>
+        <?php if (isset($compareResults)) {
+            foreach ($compareResults as $i => $compareResult) : ?>
 
-        <div class="combi-line">
+            <div class="combi-line">
 
-            <?= $resultPrinter->printBlack($compareResult); ?>
-            <?= $combiPrinter->print($propositions[$i]); ?>
-            <?= $resultPrinter->printWhite($compareResult); ?>
+                <?= $resultPrinter->printBlack($compareResult); ?>
+                <?= $combiPrinter->print($mastermind->getPropositions()[$i]); ?>
+                <?= $resultPrinter->printWhite($compareResult); ?>
 
-        </div>
+            </div>
 
-    <?php endforeach; ?>
+            <?php endforeach;
+        } ?>
 
-</section>
+        <?php if ($form instanceof Form) : ?>
+
+            <form class="form_play" action="?target=play" method="POST">
+
+                <div>
+                    <?php for ($i = 0; $i < $mastermind->getSize(); $i++) : ?>
+                        <?= $form->select(('numColor' . $i), Combination::COLORS, null, null, ['required' => 'required']); ?>
+                    <?php endfor; ?>
+                </div>
+
+                <button class="btn btn-primary">Valider</button>
+
+            </form>
+
+        <?php endif; ?>
+
+    </section>
 
 <?php endif; ?>
+
