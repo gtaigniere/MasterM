@@ -174,4 +174,13 @@ class Mastermind
         $this->propositions[] = $proposition;
     }
 
+    /**
+     * Décrémente le nombre d'essais restants
+     * @return void
+     */
+    public function decrementRemainingAttempts(): void
+    {
+        $this->remainingAttempts--;
+    }
+
 }
