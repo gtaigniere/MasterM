@@ -51,10 +51,8 @@ class CombiComparator
                     $white++;
                     array_splice($solutionPaws, $i, 1);
                     array_splice($propositionPaws, $j, 1);
-                    if ($i > 0) {
-                        $i--;
-                    }
-                    $j--;
+                    $i--;
+                    break;
                 }
             }
         }
