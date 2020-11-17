@@ -92,6 +92,14 @@ class MastermindController extends Controller
             foreach ($mastermind->getPropositions() as $proposition) {
                 $compareResults[] = $comparator->compare($proposition);
             }
+            if ($compareResults[count($compareResults) - 1]->getBlackPaws() === $mastermind->getSize()) {
+                $this->render(ROOT_DIR . 'view/win.php', compact('mastermind'));
+            }
+            $mastermind->decrementRemainingAttempts();
+            if ($mastermind->getRemainingAttempts() < 0) {
+                $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
+            }
+            $this->mastermindManager->save($mastermind);
             $form = new Form();
             $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'compareResults', 'form'));
         } else {
