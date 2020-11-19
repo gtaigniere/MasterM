@@ -30,7 +30,7 @@ class MastermindManager
         if (isset($_SESSION['mastermind'])) {
             $mastermind = new Mastermind();
             $mastermind->setSize(array_key_exists('size', $_SESSION['mastermind'])
-                ? $_SESSION['mastermind']['size'] : 0);
+                    ? $_SESSION['mastermind']['size'] : 0);
             $mastermind->setLevel(array_key_exists('level', $_SESSION['mastermind'])
                 ? $_SESSION['mastermind']['level'] : 0);
             $mastermind->setColors(array_key_exists('colors', $_SESSION['mastermind'])

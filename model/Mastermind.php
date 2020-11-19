@@ -190,33 +190,6 @@ class Mastermind
     }
 
     /**
-     * Ajoute une combinaison proposée au tableau des propositions
-     * @param Combination $proposition Combinaison proposée
-     */
-    public function addProposition(Combination $proposition): void
-    {
-        $this->propositions[] = $proposition;
-    }
-
-    /**
-     * Ajoute un résultat de comparaison au tableau des résultats de comparaisons
-     * @param CompareResult $compareResult Résultat de comparaison
-     */
-    public function addCompareResult(CompareResult $compareResult): void
-    {
-        $this->compareResults[] = $compareResult;
-    }
-
-    /**
-     * Décrémente le nombre d'essais restants
-     * @return void
-     */
-    public function decrementRemainingAttempts(): void
-    {
-        $this->remainingAttempts--;
-    }
-
-    /**
      * @param Combination $proposition
      * @throws Exception Si la partie n'existe pas ou qu'elle est terminée
      */
@@ -225,10 +198,10 @@ class Mastermind
         if ($this->remainingAttempts <= 0) {
             throw new Exception('Partie non créée');
         } else {
-            $this->addProposition($proposition);
+            $this->propositions[] = $proposition;
             $comparator = new CombiComparator($this->getSolution());
-            $this->addCompareResult($comparator->compare($proposition));
-            $this->decrementRemainingAttempts();
+            $this->compareResults[] = $comparator->compare($proposition);
+            $this->remainingAttempts--;
         }
     }
 
@@ -256,8 +229,9 @@ class Mastermind
      */
     public function isGameWon(): bool
     {
-        if (isset($this->compareResults[count($this->compareResults) - 1])) {
-            return $this->compareResults[count($this->compareResults) - 1]->getBlackPaws() === $this->getSize();
+        if (isset($this->propositions[count($this->propositions) - 1])) {
+            $proposition = $this->propositions[count($this->propositions) - 1];
+            return $proposition->getPaws() == $this->solution->getPaws();
         }
         return false;
     }

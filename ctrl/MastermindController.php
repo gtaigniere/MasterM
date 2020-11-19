@@ -82,28 +82,25 @@ class MastermindController extends Controller
     public function play(Form $form): void
     {
         $mastermind = $this->mastermindManager->find();
-        if ($mastermind && !$mastermind->isGameOver()) {
+        if (!$mastermind) {
+            ErrorManager::add('La partie n\'a pas encore été créé !');
+            header ('Location: index.php');
+        }
+        if (!$mastermind->isGameOver()) {
             $combination = [];
             for ($i = 0; $i < $mastermind->getSize(); $i++) {
                 $combination[] = $form->getValue('numColor' . $i);
             }
             $mastermind->play(new Combination($combination));
             $this->mastermindManager->save($mastermind);
-            if ($mastermind->isGameWon()) {
-                $this->render(ROOT_DIR . 'view/win.php', compact('mastermind'));
-            } elseif ($mastermind->isGameLost()) {
-                $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
-            } else {
-                $form = new Form();
-                $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
-            }
-        } elseif ($mastermind && $mastermind->isGameWon()) {
+        }
+        if ($mastermind->isGameWon()) {
             $this->render(ROOT_DIR . 'view/win.php', compact('mastermind'));
-        } elseif ($mastermind && $mastermind->isGameLost()) {
+        } elseif ($mastermind->isGameLost()) {
             $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
         } else {
-            ErrorManager::add('La partie n\'a pas encore été créé !');
-            header ('Location: index.php');
+            $form = new Form();
+            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
         }
     }
 
