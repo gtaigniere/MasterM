@@ -4,6 +4,8 @@
 namespace Model;
 
 
+use Exception;
+
 /**
  * Class Mastermind
  * @package Model
@@ -43,6 +45,12 @@ class Mastermind
     private $propositions;
 
     /**
+     * Résultats de comparaisons
+     * @var CompareResult[] $compareResults
+     */
+    private $compareResults;
+
+    /**
      * Nombre de tentatives restantes
      * @var int $remainingAttempts
      */
@@ -65,6 +73,7 @@ class Mastermind
         $this->size = 0;
         $this->level = 0;
         $this->propositions = [];
+        $this->compareResults = [];
         $this->remainingAttempts = 10;
     }
 
@@ -149,6 +158,22 @@ class Mastermind
     }
 
     /**
+     * @return CompareResult[]
+     */
+    public function getCompareResults(): array
+    {
+        return $this->compareResults;
+    }
+
+    /**
+     * @param CompareResult[] $compareResults
+     */
+    public function setCompareResults(array $compareResults): void
+    {
+        $this->compareResults = $compareResults;
+    }
+
+    /**
      * @return int
      */
     public function getRemainingAttempts(): int
@@ -166,12 +191,20 @@ class Mastermind
 
     /**
      * Ajoute une combinaison proposée au tableau des propositions
-     * Renvoie le tableau des combinaisons proposées (propositions)
      * @param Combination $proposition Combinaison proposée
      */
-    public function addProposition(Combination $proposition)
+    public function addProposition(Combination $proposition): void
     {
         $this->propositions[] = $proposition;
+    }
+
+    /**
+     * Ajoute un résultat de comparaison au tableau des résultats de comparaisons
+     * @param CompareResult $compareResult Résultat de comparaison
+     */
+    public function addCompareResult(CompareResult $compareResult): void
+    {
+        $this->compareResults[] = $compareResult;
     }
 
     /**
@@ -181,6 +214,52 @@ class Mastermind
     public function decrementRemainingAttempts(): void
     {
         $this->remainingAttempts--;
+    }
+
+    /**
+     * @param Combination $proposition
+     * @throws Exception Si la partie n'existe pas ou qu'elle est terminée
+     */
+    public function play(Combination $proposition): void
+    {
+        if ($this->remainingAttempts <= 0) {
+            throw new Exception('Partie non créée');
+        } else {
+            $this->addProposition($proposition);
+            $comparator = new CombiComparator($this->getSolution());
+            $this->addCompareResult($comparator->compare($proposition));
+            $this->decrementRemainingAttempts();
+        }
+    }
+
+    /**
+     * Renvoie true si la partie n'est ni gagné ni perdu
+     * @return bool
+     */
+    public function isGameOver(): bool
+    {
+        return ($this->isGameLost() || $this->isGameWon());
+    }
+
+    /**
+     * Renvoie true si la partie est perdue
+     * @return bool
+     */
+    public function isGameLost(): bool
+    {
+        return $this->remainingAttempts <= 0;
+    }
+
+    /**
+     * Renvoie true si la partie est gagnée
+     * @return bool
+     */
+    public function isGameWon(): bool
+    {
+        if (isset($this->compareResults[count($this->compareResults) - 1])) {
+            return $this->compareResults[count($this->compareResults) - 1]->getBlackPaws() === $this->getSize();
+        }
+        return false;
     }
 
 }

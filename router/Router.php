@@ -5,7 +5,9 @@ namespace Router;
 
 
 use Core\Html\Form;
+use Core\Util\ErrorManager;
 use Ctrl\MastermindController;
+use Exception;
 
 
 class Router
@@ -59,7 +61,12 @@ class Router
     {
         $ctrl = new MastermindController();
         $form = new Form($_POST);
-        $ctrl->play($form);
+        try {
+            $ctrl->play($form);
+        } catch (Exception $e) {
+            ErrorManager::add($e->getMessage());
+            header ('Location: index.php');
+        }
     }
 
 }
