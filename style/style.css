@@ -39,28 +39,10 @@ p {
 	margin: 0;
 }
 /********** Fin General **********/
-
-/********** Debut Header **********/
-header {
-
-}
-/********** Debut Menus **********/
-nav {
-
-}
-/***** Debut Menu Header *****/
-
-/***** Fin Menu Header *****/
-/********** Fin Header **********/
 main {
 	display: flex;
 	width: 100%;
 }
-/***** Debut Menu Side *****/
-
-/***** Fin Menu Side *****/
-/********** Fin Menus **********/
-
 /********** Debut Sections **********/
 /***** Debut Section globale *****/
 section {
@@ -84,9 +66,6 @@ section h3 {
 }
 section h4 {
 	font-size: 1.2em;
-}
-section div {
-
 }
 section p {
 	margin: 10px 0;
@@ -160,7 +139,6 @@ section div p {
 .combi-tried span.blanc {
 	background: white;
 }
-
 .mis-placed {
 	margin: auto;
 	display: flex;
@@ -192,40 +170,25 @@ section form div {
 section form div label {
 	margin-right: 10px;
 }
-section form input {
-
-}
-section form input, section form select {
-
-}
 section form button {
 	margin: auto;
-
 }
 /***** Fin Section globale *****/
 /***** Debut Page Accueil *****/
-#section_accueil {
-
-}
 #section_accueil form {
 	margin-top: 10px;
 }
 #section_accueil form div {
 	justify-content: space-between;
+	min-width: 200px;
+}
+#section_accueil form div:nth-child(3) input {
+	width: 46px;
 }
 /***** Fin Page Accueil *****/
-/***** Debut Page Start *****/
-#section_start {
-
-}
-/***** Fin Page Start *****/
 /***** Debut Page Play *****/
-#section_play {
-
-}
-#section_play > p:nth-child(3) {
-	margin-bottom: 25px;
-	background-color: var(--fndPossibleColors);
+#section_play > p:nth-child(4) {
+	margin-bottom: 20px;
 }
 #section_play form {
 	margin-top: 20px;
@@ -244,54 +207,13 @@ section form button {
 	border-radius: 0 5px 5px 0;
 }
 /***** Fin Page Play *****/
-/***** Debut Page End *****/
-#section_end {
-
-}
-/***** Fin Page End *****/
 /********** Fin Sections **********/
-/********** Debut Footer **********/
-footer {
-
-}
-/********** Fin Footer *********/
 
 /********** Design Responsive **********/
 @media screen and (max-width: 1199px) {
-	/********** Debut Header **********/
-	header {
-
-	}
-
-	/********** Debut Menus **********/
-	nav {
-
-	}
-
-	#nav_header {
-
-	}
-
-	/********** Fin Header **********/
-	#main {
-
-	}
-
-	#nav_side {
-
-	}
-
-	/********** Fin Menus **********/
 	/********** Debut Sections **********/
 	section {
 
 	}
-
 	/********** Fin Sections **********/
-	/********** Debut Footer **********/
-	footer {
-
-	}
-
-	/********** Fin Footer **********/
 }

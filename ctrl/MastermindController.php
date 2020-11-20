@@ -48,17 +48,25 @@ class MastermindController extends Controller
     /**
      * Affiche la page de démarrage du jeu
      * @param Form $config
+     * @throws Exception
      */
     public function start(Form $config): void
     {
         $size = $config->getValue('size');
         $level = $config->getValue('level');
-        $duplicate = (bool) $config->getValue('duplicate');
+        if (!is_numeric($config->getValue('attempt'))) {
+            throw new Exception('Le nombre de tentatives doit être un nombre entier !');
+        } elseif ($config->getValue('attempt') < 4 || $config->getValue('attempt') > 25) {
+            throw new Exception('Le nombre de tentatives doit être compris entre 4 et 25 inclus !');
+        }
+        $attempt = (int)$config->getValue('attempt');
+        $duplicate = (bool)$config->getValue('duplicate');
         if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
             if ($size !== null && $level !== null) {
                 $mastermind = new Mastermind();
                 $mastermind->setSize($size);
                 $mastermind->setLevel($level);
+                $mastermind->setRemainingAttempts($attempt);
                 $generator = new RandomCombiGenerator();
                 $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
                 $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], $duplicate));

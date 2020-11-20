@@ -54,7 +54,12 @@ class Router
     {
         $ctrl = new MastermindController();
         $form = new Form($_POST);
-        $ctrl->start($form);
+        try {
+            $ctrl->start($form);
+        } catch (Exception $e) {
+            ErrorManager::add($e->getMessage());
+            header ('Location: index.php');
+        }
     }
 
     public function play(): void
