@@ -9,7 +9,6 @@ use Core\Html\Form;
 use Core\Util\ErrorManager;
 use Exception;
 use Manager\MastermindManager;
-use Model\CombiComparator;
 use Model\Combination;
 use Model\Mastermind;
 use Model\RandomCombiGenerator;

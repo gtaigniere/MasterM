@@ -229,11 +229,8 @@ class Mastermind
      */
     public function isGameWon(): bool
     {
-        if (isset($this->propositions[count($this->propositions) - 1])) {
-            $proposition = $this->propositions[count($this->propositions) - 1];
-            return $proposition->getPaws() == $this->solution->getPaws();
-        }
-        return false;
+        $nbProposition = count($this->propositions);
+        return $nbProposition > 0 ? ($this->propositions[$nbProposition - 1]->getPaws() == $this->solution->getPaws()) : false;
     }
 
 }
