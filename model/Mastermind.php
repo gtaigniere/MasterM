@@ -4,6 +4,8 @@
 namespace Model;
 
 
+use Exception;
+
 /**
  * Class Mastermind
  * @package Model
@@ -43,6 +45,12 @@ class Mastermind
     private $propositions;
 
     /**
+     * Résultats de comparaisons
+     * @var CompareResult[] $compareResults
+     */
+    private $compareResults;
+
+    /**
      * Nombre de tentatives restantes
      * @var int $remainingAttempts
      */
@@ -65,6 +73,7 @@ class Mastermind
         $this->size = 0;
         $this->level = 0;
         $this->propositions = [];
+        $this->compareResults = [];
         $this->remainingAttempts = 10;
     }
 
@@ -149,6 +158,22 @@ class Mastermind
     }
 
     /**
+     * @return CompareResult[]
+     */
+    public function getCompareResults(): array
+    {
+        return $this->compareResults;
+    }
+
+    /**
+     * @param CompareResult[] $compareResults
+     */
+    public function setCompareResults(array $compareResults): void
+    {
+        $this->compareResults = $compareResults;
+    }
+
+    /**
      * @return int
      */
     public function getRemainingAttempts(): int
@@ -165,22 +190,47 @@ class Mastermind
     }
 
     /**
-     * Ajoute une combinaison proposée au tableau des propositions
-     * Renvoie le tableau des combinaisons proposées (propositions)
-     * @param Combination $proposition Combinaison proposée
+     * @param Combination $proposition
+     * @throws Exception Si la partie n'existe pas ou qu'elle est terminée
      */
-    public function addProposition(Combination $proposition)
+    public function play(Combination $proposition): void
     {
-        $this->propositions[] = $proposition;
+        if ($this->remainingAttempts <= 0) {
+            throw new Exception('Partie non créée');
+        } else {
+            $this->propositions[] = $proposition;
+            $comparator = new CombiComparator($this->getSolution());
+            $this->compareResults[] = $comparator->compare($proposition);
+            $this->remainingAttempts--;
+        }
     }
 
     /**
-     * Décrémente le nombre d'essais restants
-     * @return void
+     * Renvoie true si la partie n'est ni gagné ni perdu
+     * @return bool
      */
-    public function decrementRemainingAttempts(): void
+    public function isGameOver(): bool
     {
-        $this->remainingAttempts--;
+        return ($this->isGameLost() || $this->isGameWon());
+    }
+
+    /**
+     * Renvoie true si la partie est perdue
+     * @return bool
+     */
+    public function isGameLost(): bool
+    {
+        return $this->remainingAttempts <= 0;
+    }
+
+    /**
+     * Renvoie true si la partie est gagnée
+     * @return bool
+     */
+    public function isGameWon(): bool
+    {
+        $nbProposition = count($this->propositions);
+        return $nbProposition > 0 ? ($this->propositions[$nbProposition - 1]->getPaws() == $this->solution->getPaws()) : false;
     }
 
 }

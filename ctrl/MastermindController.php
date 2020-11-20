@@ -7,8 +7,8 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 use Core\Html\Form;
 use Core\Util\ErrorManager;
+use Exception;
 use Manager\MastermindManager;
-use Model\CombiComparator;
 use Model\Combination;
 use Model\Mastermind;
 use Model\RandomCombiGenerator;
@@ -76,35 +76,30 @@ class MastermindController extends Controller
      * Affiche la page principale du jeu
      * @param Form $form
      * @return void
+     * @throws Exception
      */
     public function play(Form $form): void
     {
         $mastermind = $this->mastermindManager->find();
-        if ($mastermind) {
+        if (!$mastermind) {
+            ErrorManager::add('La partie n\'a pas encore été créé !');
+            header ('Location: index.php');
+        }
+        if (!$mastermind->isGameOver()) {
             $combination = [];
             for ($i = 0; $i < $mastermind->getSize(); $i++) {
                 $combination[] = $form->getValue('numColor' . $i);
             }
-            $mastermind->addProposition(new Combination($combination));
+            $mastermind->play(new Combination($combination));
             $this->mastermindManager->save($mastermind);
-            $compareResults = [];
-            $comparator = new CombiComparator($mastermind->getSolution());
-            foreach ($mastermind->getPropositions() as $proposition) {
-                $compareResults[] = $comparator->compare($proposition);
-            }
-            if ($compareResults[count($compareResults) - 1]->getBlackPaws() === $mastermind->getSize()) {
-                $this->render(ROOT_DIR . 'view/win.php', compact('mastermind'));
-            }
-            $mastermind->decrementRemainingAttempts();
-            if ($mastermind->getRemainingAttempts() < 0) {
-                $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
-            }
-            $this->mastermindManager->save($mastermind);
-            $form = new Form();
-            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'compareResults', 'form'));
+        }
+        if ($mastermind->isGameWon()) {
+            $this->render(ROOT_DIR . 'view/win.php', compact('mastermind'));
+        } elseif ($mastermind->isGameLost()) {
+            $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
         } else {
-            ErrorManager::add('La partie n\'a pas encore été créé !');
-            header ('Location: index.php');
+            $form = new Form();
+            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
         }
     }
 

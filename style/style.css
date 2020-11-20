@@ -102,6 +102,7 @@ section div p {
 	height: 65px;
 }
 .combi-tried:nth-child(4) {
+	margin-bottom: 30px;
 	background: lightblue;
 }
 .well-placed {
@@ -228,6 +229,9 @@ section form button {
 }
 #section_play form {
 	margin-top: 20px;
+}
+#section_play form div {
+	margin: 10px 0 26px;
 }
 #section_play form div select {
 	width: 80px;
