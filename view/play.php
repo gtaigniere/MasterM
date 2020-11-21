@@ -29,7 +29,8 @@ if (isset($mastermind, $form)) :
         <?php $resultPrinter = new ResultPrinter(); ?>
 
         <?= $combiPrinter->print($mastermind->getColors()); ?>
-        <?= $combiPrinter->print($mastermind->getSolution()); ?>
+
+        <p>Tentatives restantes : <?= $mastermind->getRemainingAttempts(); ?></p>
 
         <?php if (!empty($mastermind->getCompareResults())) {
             foreach ($mastermind->getCompareResults() as $i => $compareResult) : ?>
