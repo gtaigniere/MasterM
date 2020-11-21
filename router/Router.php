@@ -16,12 +16,18 @@ class Router
     private $params;
 
     /**
+     * @var MastermindController
+     */
+    private $mastermindController;
+
+    /**
      * Router constructor.
      * @param array $params
      */
     public function __construct(array $params)
     {
         $this->params = $params;
+        $this->mastermindController = new MastermindController();
     }
 
     public function route(): void
@@ -44,22 +50,19 @@ class Router
 
     public function home(): void
     {
-        $ctrl = new MastermindController();
-        $ctrl->home();
+        $this->mastermindController->home();
     }
 
     public function start(): void
     {
-        $ctrl = new MastermindController();
         $form = new Form($_POST);
-        $ctrl->start($form);
+        $this->mastermindController->start($form);
     }
 
     public function play(): void
     {
-        $ctrl = new MastermindController();
         $form = new Form($_POST);
-        $ctrl->play($form);
+        $this->mastermindController->play($form);
     }
 
 }

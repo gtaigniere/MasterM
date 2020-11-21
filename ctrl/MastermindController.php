@@ -37,7 +37,6 @@ class MastermindController extends Controller
 
     /**
      * Affiche la page d'accueil du jeu
-     * @param Form $form
      */
     public function home(): void
     {
@@ -58,11 +57,10 @@ class MastermindController extends Controller
             $attempt = $config->getValue('attempt');
             if (!is_numeric($attempt)) {
                 throw new Exception('Le nombre de tentatives doit être un nombre entier !');
-            } else {
-                $attempt = (int)$attempt;
-                if ($attempt < 4 || $attempt > 25) {
-                    throw new Exception('Le nombre de tentatives doit être compris entre 4 et 25 inclus !');
-                }
+            }
+            $attempt = (int)$attempt;
+            if ($attempt < 4 || $attempt > 25) {
+                throw new Exception('Le nombre de tentatives doit être compris entre 4 et 25 inclus !');
             }
             $duplicate = (bool)$config->getValue('duplicate');
             if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
