@@ -23,8 +23,9 @@ if (isset($form)) :
 
         <p>Choisissez la taille de la combinaison (de 2 à 8 pions),<br>
             la difficulté est le nombre de couleurs possibles<br>
-            (Easy = 4 / Medium = 6 / Hard = 8), et si les doublons<br>
-            sont acceptés ou non (Cochez pour oui).</p>
+            (Easy = 4 / Medium = 6 / Hard = 8), le nombre maximum<br>
+            de tentatives (de 4 à 25), et si les doublons sont<br>
+            acceptés ou non (Cochez pour oui).</p>
 
         <?php if ($form instanceof Form) : ?>
 
@@ -36,6 +37,10 @@ if (isset($form)) :
 
                 <div>
                     <?= $form->select('level', ["Easy", "Medium", "Hard"], 'Difficulté :', null, ['required' => 'required']); ?>
+                </div>
+
+                <div>
+                    <?= $form->input('attempt', 'Tentatives max :', ['type' => 'number']); ?>
                 </div>
 
                 <div>

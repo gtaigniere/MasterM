@@ -37,7 +37,6 @@ class MastermindController extends Controller
 
     /**
      * Affiche la page d'accueil du jeu
-     * @param Form $form
      */
     public function home(): void
     {
@@ -48,27 +47,41 @@ class MastermindController extends Controller
     /**
      * Affiche la page de démarrage du jeu
      * @param Form $config
+     * @throws Exception
      */
     public function start(Form $config): void
     {
-        $size = $config->getValue('size');
-        $level = $config->getValue('level');
-        $duplicate = (bool) $config->getValue('duplicate');
-        if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
-            if ($size !== null && $level !== null) {
-                $mastermind = new Mastermind();
-                $mastermind->setSize($size);
-                $mastermind->setLevel($level);
-                $generator = new RandomCombiGenerator();
-                $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
-                $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], $duplicate));
-                $this->mastermindManager->save($mastermind);
+        try {
+            $size = $config->getValue('size');
+            $level = $config->getValue('level');
+            $attempt = $config->getValue('attempt');
+            if (!is_numeric($attempt)) {
+                throw new Exception('Le nombre de tentatives doit être un nombre entier !');
             }
-            $form = new Form();
-            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
-        } else {
-            ErrorManager::add('Sans doublons, la taille de la solution doit être inférieure ou égale au nombre de couleurs possibles !');
-            header ('Location: index.php');
+            $attempt = (int)$attempt;
+            if ($attempt < 4 || $attempt > 25) {
+                throw new Exception('Le nombre de tentatives doit être compris entre 4 et 25 inclus !');
+            }
+            $duplicate = (bool)$config->getValue('duplicate');
+            if ($duplicate || $size <= count(Mastermind::LEVELS[$level])) {
+                if ($size !== null && $level !== null) {
+                    $mastermind = new Mastermind();
+                    $mastermind->setSize($size);
+                    $mastermind->setLevel($level);
+                    $mastermind->setRemainingAttempts($attempt);
+                    $generator = new RandomCombiGenerator();
+                    $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
+                    $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], $duplicate));
+                    $this->mastermindManager->save($mastermind);
+                }
+                $form = new Form();
+                $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
+            } else {
+                throw new Exception('Sans doublons, la taille de la solution doit être inférieure ou égale au nombre de couleurs possibles !');
+            }
+        } catch (Exception $e) {
+            ErrorManager::add($e->getMessage());
+            header('Location: index.php');
         }
     }
 
