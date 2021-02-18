@@ -73,9 +73,10 @@ class MastermindController extends Controller
                     $mastermind->setColors(new Combination(Mastermind::LEVELS[$level]));
                     $mastermind->setSolution($generator->generate($size, Mastermind::LEVELS[$level], $duplicate));
                     $this->mastermindManager->save($mastermind);
+                    $colorsForThisGame = $mastermind->colorsForCurrentGame();
                 }
                 $form = new Form();
-                $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
+                $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form', 'colorsForThisGame'));
             } else {
                 throw new Exception('Sans doublons, la taille de la solution doit être inférieure ou égale au nombre de couleurs possibles !');
             }
@@ -111,8 +112,9 @@ class MastermindController extends Controller
         } elseif ($mastermind->isGameLost()) {
             $this->render(ROOT_DIR . 'view/loose.php', compact('mastermind'));
         } else {
+            $colorsForThisGame = $mastermind->colorsForCurrentGame();
             $form = new Form();
-            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form'));
+            $this->render(ROOT_DIR . 'view/play.php', compact('mastermind', 'form', 'colorsForThisGame'));
         }
     }
 
