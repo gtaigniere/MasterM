@@ -80,8 +80,7 @@ section div p {
 	width: auto;
 	height: 65px;
 }
-.combi-tried:nth-child(4) {
-	margin-bottom: 30px;
+.combi-tried:nth-child(3) {
 	background: lightblue;
 }
 .well-placed {

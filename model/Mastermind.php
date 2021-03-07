@@ -233,4 +233,19 @@ class Mastermind
         return $nbProposition > 0 ? ($this->propositions[$nbProposition - 1]->getPaws() == $this->solution->getPaws()) : false;
     }
 
+    /**
+     * Renvoie un tableau associatif contenant les couleurs correspondantes au niveau de difficulté choisi
+     * Ce tableau sera utilisé pour les select du formulaire lors des propositions de combinaisons
+     * afin de ne pouvoir sélectionner que les couleurs possibles pour la partie en cours
+     * @return array
+     */
+    public function colorsForCurrentGame(): array
+    {
+        $currentColors = [];
+        for ($i = 0; $i < count($this->colors->getPaws()); $i++) {
+            $currentColors[$this->colors->getPaws()[$i]] = Combination::COLORS[$this->colors->getPaws()[$i]];
+        }
+        return $currentColors;
+    }
+
 }

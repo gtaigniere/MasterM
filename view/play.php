@@ -7,7 +7,7 @@ use Model\Combination;
 use Printer\CombiPrinter;
 use Printer\ResultPrinter;
 
-if (isset($mastermind, $form)) :
+if (isset($mastermind, $form, $colorsForThisGame)) :
 ?>
 
     <section id="section_play">
@@ -52,7 +52,7 @@ if (isset($mastermind, $form)) :
 
                 <div>
                     <?php for ($i = 0; $i < $mastermind->getSize(); $i++) : ?>
-                        <?= $form->select(('numColor' . $i), Combination::COLORS, null, null, ['required' => 'required']); ?>
+                        <?= $form->select(('numColor' . $i), $colorsForThisGame, null, null, ['required' => 'required']); ?>
                     <?php endfor; ?>
                 </div>
 
